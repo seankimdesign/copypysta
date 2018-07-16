@@ -56,7 +56,8 @@ def detect_copy():
     if copy_keys.issubset(active_keys):
         time.sleep(0.1)
         copy_value = pyperclip.paste()
-        cache.shift(copy_value)
+        if copy_value != cache.retrieve(0):
+            cache.shift(copy_value)
         return True
     return False
 

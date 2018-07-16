@@ -9,7 +9,7 @@ class CopyCache(object):
         self.cache = self.cache[:10]
 
     def retrieve(self, index):
-        if index <= 9:
+        if index <= 9 and len(self.cache) > index:
             return self.cache[index]
         return ""
 
