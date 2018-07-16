@@ -59,6 +59,8 @@ def detect_paste():
             value = cache.retrieve(index)
             pyperclip.copy(value)
             perform_paste()
+            time.sleep(0.1)
+            pyperclip.copy(cache.retrieve(0))
 
 
 def get_first_int():
@@ -85,7 +87,7 @@ def perform_purge():
     pyperclip.copy("")
 
 
-print('Copypysta application started')
+# print('Copypysta application started')
 
 
 with keyboard.Listener(
