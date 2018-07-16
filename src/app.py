@@ -1,5 +1,6 @@
 import pyperclip
 import time
+import platform
 from copycache import CopyCache
 from pynput import keyboard
 
@@ -7,6 +8,16 @@ active_keys = []
 cache = CopyCache()
 controller = keyboard.Controller()
 paste_occurred = False
+user_os = platform.system().lower()
+
+copy_keys = {'ctrl', 'c'}
+paste_keys = {'ctrl', '`'}
+os_paste_command = [keyboard.Key.ctrl, 'v']
+
+if user_os == 'darwin':
+    copy_keys = {'cmd', 'ç'}
+    paste_keys = {'ctrl'}
+    os_paste_command = [keyboard.Key.cmd, 'v']
 
 
 def on_press(key):
@@ -30,6 +41,8 @@ def normalize(key):
         key_name = str(key)
         if "ctrl" in key_name:
             key_name = "ctrl"
+        if "cmd" in key_name:
+            key_name = "cmd"
     return key_name
 
 
@@ -40,7 +53,7 @@ def detect_operations():
 
 
 def detect_copy():
-    if {'ctrl', 'c'}.issubset(active_keys):
+    if copy_keys.issubset(active_keys):
         time.sleep(0.1)
         copy_value = pyperclip.paste()
         cache.shift(copy_value)
@@ -49,7 +62,7 @@ def detect_copy():
 
 
 def detect_paste():
-    if {'ctrl', 'q'}.issubset(active_keys):
+    if paste_keys.issubset(active_keys):
         index = get_first_int()
         if index == 0:
             perform_purge()
@@ -73,10 +86,8 @@ def get_first_int():
 def perform_paste():
     global paste_occurred
     if not paste_occurred:
-        controller.press(keyboard.Key.ctrl)
-        controller.press('v')
-        controller.release(keyboard.Key.ctrl)
-        controller.release('v')
+        [controller.press(k) for k in os_paste_command]
+        [controller.release(k) for k in os_paste_command]
         paste_occurred = True
 
 

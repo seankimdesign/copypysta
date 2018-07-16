@@ -2,10 +2,21 @@
 
 Simple copy cache that remembers up to 9 values that were copied to memory.
 
-Paste the values in memory by pressing ctrl+Q+{1-9}. Values held in lower numbers represent more recently copied values.
+Tested on Windows and MacOS.
 
-Press ctrl+Q+0 to purge all cached copy values as well as the OS held copy value (ctrl+v will paste an empty string)
+(For MacOS, pyobjc-core and pyobjc must be installed. Application must run as root)
 
-Press ESC to exit the application.
 
-(Windows only)
+## Operation
+
+### Windows
+
+Paste the values in memory by pressing ctrl+Q+{1-9}.
+
+Press ctrl+Q+0 to purge all cached copy values as well as the OS held copy value.
+
+### MacOS
+
+Paste the values in memory by pressing ctrl+{1-9}.
+
+Press ctrl+0 to purge all cached copy values as well as the OS held copy value.
