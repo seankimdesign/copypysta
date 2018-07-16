@@ -1,11 +1,18 @@
 # TODO: Persist through session via DB or filewriting
 class CopyCache(object):
 
+    @staticmethod
+    def sanitize(value):
+        try:
+            return str(value)
+        except ValueError:
+            return ""
+
     def __init__(self):
         self.cache = []
 
     def shift(self, value):
-        self.cache.insert(0, value)
+        self.cache.insert(0, CopyCache.sanitize(value))
         self.cache = self.cache[:10]
 
     def retrieve(self, index):
