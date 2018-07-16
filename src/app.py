@@ -17,8 +17,6 @@ def on_press(key):
 
 def on_release(key):
     global paste_occurred
-    if key == keyboard.Key.esc:
-        return False
     key_name = normalize(key)
     while key_name in active_keys:
         active_keys.remove(key_name)
